@@ -1,0 +1,38 @@
+.container {
+  text-align: center;
+  margin-top: 10px;
+}
+.calc-container {
+  border: 1px solid #333;
+  border-radius: 2px;
+  display: inline-block;
+  background-color: #ddd;
+}
+
+.calc-button {
+  width: 35px;
+  min-height: 10px;
+  color: #333;
+  background-color: #ccc;
+}
+
+.width-2 {
+  width: 70px !important;
+}
+
+.calc-button-op {
+  color: #fff;
+  background-color: orange;
+}
+
+.calc-button-top {
+  color: #333;
+  background-color: #aaa;
+}
+
+.answer-box {
+  background-color: #333;
+  color: #fff;
+  text-align: right;
+  min-height: 25px;
+}
