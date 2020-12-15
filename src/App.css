@@ -36,3 +36,8 @@
   text-align: right;
   min-height: 25px;
 }
+
+.calc-button-op-selected {
+  color: orange;
+  background-color: #fff;
+}
