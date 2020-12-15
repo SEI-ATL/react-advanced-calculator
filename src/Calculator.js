@@ -1,82 +1,126 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+
+import Display from './components/Display'
+import DigitButton from './components/DigitButton'
+import OperatorButton from './components/OperatorButton'
+import ClearButton from './components/ClearButton'
+import EqualButton from './components/EqualButton'
 
 const Calculator = props => {
     // Declare state variables
     const [num1, setNum1] = useState('');
     const [num2, setNum2] = useState('');
     const [opp, setOpp] = useState('');
-    const [val, setVal] = useState('');
-    const [wrong, setWrong] = useState('');
+    const [tempNum, setTempNum] = useState('');
+    const [result, setResult] = useState('')
+    const [shouldCalculate, setShouldCalculate] = useState(false)
 
-    const handleClick = (e) => {
-        if (e === 'x' || e === '/' || e === '+' || e === '-') {
-            if (opp.length === 1) {
-                setOpp('Choose one operator')
-                return
-            }
-            setOpp(`${opp}${e}`)
-        } else if (opp === '' && num2 === '') {
-            setNum1(`${num1}${e}`)
+    const clear = () => {
+        setNum1('')
+        setNum2('')
+        setOpp('')
+        setTempNum('')
+        setResult('')
+        setShouldCalculate(false)
+    }
+
+    const digitEntered = (digit) => {
+        if (digit === '0' && tempNum === '') {
+            // no op
+        } else if (digit !== '0' && tempNum === '') {
+            setTempNum(digit)
+        } else if (tempNum !== '') {
+            setTempNum(tempNum + digit)
+        } 
+    }
+
+    const operatorEntered = (operator) => {
+        if (tempNum === '') {
+            //no op
+        } else if (tempNum !== '' && num2 !== '') {
+            // no op
+        } else if (opp !== '') {
+            // no op
         } else {
-            if (num1 != '' && num2 != '' && opp != '' && e === '=') {
-                if (opp === '+') {
-                    setVal(parseInt(num1) + parseInt(num2))
-                } else if (opp === '-') {
-                    setVal(parseInt(num1) - parseInt(num2))
-                } else if (opp === 'x') {
-                    setVal(parseInt(num1) x parseInt(num2))
-                } else {
-                    setVal(parseInt(num1) / parseInt(num2))
-                }
-            }
-            setNum2(`${num2}${e}`)
+            setNum1(tempNum)
+            setOpp(operator)
+            setTempNum('')
         }
     }
 
-    const handleClear = () => {
-        setNum1('');
-        setNum2('');
-        setOpp('');
-        setVal('');
+    const equalEntered = () => {
+        setNum2(tempNum)
+        setTempNum('')
+        setShouldCalculate(true)
+
     }
+    
+    useEffect(() => {
+        if (!shouldCalculate) {return}
+
+        const parsedNum1 = parseFloat(num1)
+        const parsedNum2 = parseFloat(num2)
+    
+        if (opp === '+') {
+            setResult(parsedNum1 + parsedNum2)
+        } else if (opp === '-') {
+            setResult(parsedNum1 - parsedNum2)
+        } else if (opp === '/') {
+            setResult(parsedNum1 / parsedNum2)
+        } else if (opp === 'x') {
+            setResult(parsedNum1 * parsedNum2)
+        }
+        
+    }, [shouldCalculate])
+
+     const displayForNum2 = () => {
+        if (!num1) {
+            return ''
+        } else if (!num2) {
+            return tempNum
+        } else {
+            return num2
+        }
+    }
+
+    
 
     return (
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <div className="answer-box">{num1}{opp}{num2}{value ? `${value}` : ''}</div>
+                <Display num1={num1 || tempNum} operator={operator} num2={displayForNum2()} result={result}/>
                 <div className="calc-row">
-                    <button className="calc-button calc-button-top" onClick={()=> handleClear()}>AC</button>
+                    <ClearButton clear={clear}/>
                     <button className="calc-button calc-button-top">+/-</button>
                     <button className="calc-button calc-button-top">%</button>
-                    <button className="calc-button calc-button-op" onClick={()=> handleClick('/')}>/</button>
+                    <OperatorButton operatorEntered={operatorEntered} operator='/'/>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button" onClick={()=> handleClick('7')}>7</button>
-                    <button className="calc-button" onClick={()=> handleClick('8')}>8</button>
-                    <button className="calc-button" onClick={()=> handleClick('9')}>9</button>
-                    <button className="calc-button calc-button-op" onClick={()=> handleClick('x')}>x</button>
+                    <DigitButton digitEntered={digitEntered} digit='7'/>
+                    <DigitButton digitEntered={digitEntered} digit='8'/>
+                    <DigitButton digitEntered={digitEntered} digit='9'/>
+                    <OperatorButton operatorEntered={operatorEntered} operator='x'/>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button" onClick={()=> handleClick('4')}>4</button>
-                    <button className="calc-button" onClick={()=> handleClick('5')}>5</button>
-                    <button className="calc-button" onClick={()=> handleClick('6')}>6</button>
-                    <button className="calc-button calc-button-op" onClick={()=> handleClick('-')}>-</button>
+                    <DigitButton digitEntered={digitEntered} digit='4'/>
+                    <DigitButton digitEntered={digitEntered} digit='5'/>
+                    <DigitButton digitEntered={digitEntered} digit='6'/>
+                    <OperatorButton operatorEntered={operatorEntered} operator='-'/>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button" onClick={()=> handleClick('1')}>1</button>
-                    <button className="calc-button" onClick={()=> handleClick('2')}>2</button>
-                    <button className="calc-button" onClick={()=> handleClick('3')}>3</button>
-                    <button className="calc-button calc-button-op" onClick={()=> handleClick('+')}>+</button>
+                    <DigitButton digitEntered={digitEntered} digit='1'/>
+                    <DigitButton digitEntered={digitEntered} digit='2'/>
+                    <DigitButton digitEntered={digitEntered} digit='3'/>
+                    <OperatorButton operatorEntered={operatorEntered} operator='+'/>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button width-2" onClick={()=> handleClick('0')}>0</button>
+                    <DigitButton digitEntered={digitEntered} digit="0" wide />
                     <button className="calc-button">.</button>
-                    <button className="calc-button calc-button-op" onClick={()=> handleClick('=')}>=</button>
+                    <EqualButton equalEntered={equalEntered}/>
                 </div>
             </div>
-            <h3>{wrong}</h3>
         </div>
     )
 }
