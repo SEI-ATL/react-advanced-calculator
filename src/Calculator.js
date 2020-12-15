@@ -7,8 +7,9 @@ const Calculator = props => {
     const [firstNum, setFirstNum] = useState(0);
     const [secondNum, setSecondNum] = useState(0);
     // how to append digits, then stop appending when an operator is assigned
+    // how to remove initial undefined state for currentNum
     function setNum(e, num) {
-      if (currentNum.num != 0) {
+      if (currentNum.num !== 0) {
         let string = "" + currentNum.num + num;
         let newNum = parseInt(string);
         // console.log(stringNum);
@@ -30,7 +31,7 @@ const Calculator = props => {
       return currentNum.num;
     }
 
-    function percent() {
+    function percent(e) {
       let float = parseFloat(currentNum.num);
       // console.log(float);
       let percent = float * 0.01;
@@ -40,16 +41,17 @@ const Calculator = props => {
 
     function clear(e) {
       setCurrentNum({num: 0});
-
     }
 
     function changeOperator(e, op) {
-      // something to stop appending digits here
+      setFirstNum(currentNum.num);
+      // then reset currentNum.num - do this asynchronously?
       setOperator({op: op});
       return operator.op;
     }
 
     function equals(e) {
+      setSecondNum(currentNum.num);
       if (operator.op === '+') {
         let sum = firstNum.num + secondNum.num;
         setCurrentNum({num: sum});
@@ -96,7 +98,7 @@ const Calculator = props => {
                 <div className="calc-row">
                     <button className="calc-button width-2" onClick={ (e) => {setNum(e, 0)} }>0</button>
                     <button className="calc-button">.</button>
-                    <button className="calc-button calc-button-op">=</button>
+                    <button className="calc-button calc-button-op"onClick={ (e) => {equals(e)} }>=</button>
                 </div>
             </div>
         </div>
