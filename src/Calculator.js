@@ -12,12 +12,13 @@ const Calculator = props => {
       if (currentNum.num !== 0) {
         let string = "" + currentNum.num + num;
         let newNum = parseInt(string);
-        // console.log(stringNum);
-        setCurrentNum({num: string});
+        console.log(newNum);
+        setCurrentNum({num: newNum});
+        // console.log(currentNum.num);
       } else {
         setCurrentNum({num: num})
       }
-      return currentNum.num;
+
     }
 
     function posToNeg(e) {
@@ -28,42 +29,62 @@ const Calculator = props => {
         let positive = Math.abs(currentNum.num);
         setCurrentNum({num: positive});
       }
-      return currentNum.num;
+
     }
 
+    function float(e) {
+      let float = parseFloat(currentNum.num);
+      // how to simply append a . to currentNum? Does parseFloat work on a string like this?
+      setCurrentNum({num: float});
+
+    }
     function percent(e) {
       let float = parseFloat(currentNum.num);
       // console.log(float);
       let percent = float * 0.01;
       setCurrentNum({num: percent});
-      return currentNum.num;
+
     }
 
     function clear(e) {
       setCurrentNum({num: 0});
+      setFirstNum({num: 0});
+      setSecondNum({num: 0});
     }
 
     function changeOperator(e, op) {
-      setFirstNum(currentNum.num);
+      let current = currentNum.num;
+      setFirstNum({num: current});
+      console.log(firstNum.num);
       // then reset currentNum.num - do this asynchronously?
       setOperator({op: op});
-      return operator.op;
+
     }
 
     function equals(e) {
-      setSecondNum(currentNum.num);
+      setSecondNum({num: currentNum.num});
       if (operator.op === '+') {
         let sum = firstNum.num + secondNum.num;
         setCurrentNum({num: sum});
+        setFirstNum({num: 0});
+        setSecondNum({num: 0})
       } else if (operator.op === '-') {
         let diff = firstNum.num - secondNum.num;
         setCurrentNum({num: diff});
+        setFirstNum({num: 0});
+        setSecondNum({num: 0})
       } else if (operator.op === 'x') {
         let prod = firstNum.num * secondNum.num;
         setCurrentNum({num: prod})
+        setFirstNum({num: 0});
+        setSecondNum({num: 0})
       } else if (operator.op === '/') {
         let quot = firstNum.num / secondNum.num;
+        setCurrentNum({num: quot})
+        setFirstNum({num: 0});
+        setSecondNum({num: 0})
       }
+
     }
     return (
         <div className="container">
