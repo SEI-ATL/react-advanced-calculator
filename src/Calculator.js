@@ -1,13 +1,36 @@
 import React, { useState } from 'react'
 
 const Calculator = props => {
-    // Declare state variables
+   
+    
+    // Declared state variables
     const [num1, setNum1] = useState('');
     const [num2, setNum2] = useState('');
     const [operator, setOperator] = useState('');
     const [total, setTotatl] = useState('');
 
+    const handleClick = (e) => {
+        if (e === '+' || e === '-' || e === 'x' || e === '/') {
+            setOperator(`${operator}${e}`)
+        } else if (operator === '' && num2 === '') {
+            setNum1(`${num1}${e}`)
+            } else {
+                if (num1 != '' && num2 != '' && operator != '' && e === '=') {
+                    if (operator === '+') {
+                        setTotatl(parseInt(num1) + parseInt(num2))
+                    } else if (operator === '-') {
+                        setTotatl(parseInt(num1) - parseInt(num2))
+                    } else if (operaor === 'x') {
+                        setTotatl(parseInt(num1) * parseInt(num2))
+                    } else if (operator === '/') {
+                        setTotatl(parseInt(num1) / parseInt(num2))
+                    }
+                }
 
+                setNum2(`${num2}${e}`)
+            }
+    }
+        
 
     // Added a handleClear function that will clear everything
     handleClear = () => {
