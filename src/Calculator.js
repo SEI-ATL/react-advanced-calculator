@@ -5,9 +5,7 @@ const Calculator = (props) => {
   const [num1, setNum1] = useState("");
   const [num2, setNum2] = useState("");
   const [display, setDisplay] = useState("");
-  const [result, setResult] = useState(null);
-  const [operator, setOperator] = useState(null);
-  const [decimal, setDecimal] = useState("");
+  const [operator, setOperator] = useState('');
   const [decimalStatus, setDecimalStatus] = useState(false);
 
   const handleClick = (value) => {
@@ -19,8 +17,12 @@ const Calculator = (props) => {
   };
 
   const operation = (value) => {
+    if(operator !== '') {
+      return
+    } else {
     decimalDisabled();
     return setOperator(value);
+    }
   };
 
 
@@ -55,7 +57,6 @@ const Calculator = (props) => {
             onClick={() => {
               setNum1("");
               setNum2("");
-              setResult("");
               setOperator("");
               setDisplay("");
               setDecimalStatus(false);
