@@ -2,50 +2,66 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
-    const [display, setDisplay] = useState('')
+    // const [operator, setDisplay] = useState('')
     const [num1, setNum1] = useState('')
     const [operator, setOperator] = useState('')
     const [num2, setNum2] = useState('')
-    // const [equate, setEquate] = useState()
+    const [equate, setEquate] = useState()
 
 
     const handleClickNums = (num) => {
-        if (display === '' && num === '0') {
-            return
-        } else if (display === '') {
-            setDisplay(num)
-            // setNum1(num)
+        if (num1 === '' && num2 === '' && num === '0') {
+            alert('Cannot start with 0')
+            setNum1('')
+            setNum2('')
+            setOperator('')
+        } else if (num2 === '' && num === '0') {
+            alert('Cannot start with 0')
+            setNum1('')
+            setNum2('')
+            setOperator('')
         } else {
-            let newDisplay = display.concat(num)
-            if (display === '+' || display === '-' || display === '*' || display === '/') {
-                setDisplay(newDisplay)
-                setNum2(num)
+            if (operator === '') {
+                let newNum1 = num1.concat(num)
+                setNum1(newNum1)
+            } else {
+                let newNum2 = num2.concat(num)
+                setNum2(newNum2)
             }
-            setDisplay(newDisplay)
-            // setNum1(num)
         }
+
+
     }
 
     const handleClearDisplay = () => {
-        setDisplay('')
+        setNum1('')
+        setNum2('')
+        setOperator('')
+        setEquate('')
     }
     
-    const handleOperator = (opp) => {
-        setNum1(display)
-        setDisplay(opp)
-        setOperator(opp)
+    const handleOperator = (op) => {
+        if (operator === '+' || operator === '-' || operator === '*' || operator === '/') {
+            console.log('Error two operators used back to back.')
+            alert('Error two operators used back to back')
+        }
+        setOperator(op)
+        // setOperator(op)
     }
 
-    const evaluate = () => {
+    const evaluate = async () => {
         let evaluation = eval(`${num1} ${operator} ${num2}`)
-        setDisplay(evaluation)
+        // setOperator('')
+        setEquate(evaluation)
         console.log(evaluation)
     }
+
     return (
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Dis: {display} </p>
+                <p>Display: {`${num1} ${operator} ${num2}`}</p>
+                <div>{equate? `${equate}`: ""}</div>
                 <div className="answer-box">TBD</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={() => handleClearDisplay()}>AC</button>
