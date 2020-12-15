@@ -38,11 +38,6 @@ const Calculator = props => {
                 setPreviousNum(`${previousNum}${e}`)
             }
     }
-
-    
-    
-    
-    
     const handleClear = () => {
         setPreviousNum('');
         setCurrentNum('');
@@ -51,31 +46,7 @@ const Calculator = props => {
         setSolution('');
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    return (
+        return (
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
