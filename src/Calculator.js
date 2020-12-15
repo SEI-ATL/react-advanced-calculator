@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import AnswerBox from './AnswerBox';
 
 let clickCount = 0;
+let plusResult = 0;
 
 const Calculator = props => {
     // Declare state variables
-const [numberOne, setNumberOne] = useState(null);
-const [numberTwo, setNumberTwo] = useState(null);
+const [numberOne, setNumberOne] = useState(0);
+const [numberTwo, setNumberTwo] = useState(0);
 const [operator, setOperator] = useState('@@@');
-const [result, setResult] = useState('')
+const [result, setResult] = useState(0)
 
  const whichNumber=async(e)=>{
  if(clickCount === 0){
   
-     await setNumberOne(e.target.value)
+     await setNumberOne(parseFloat(e.target.value))
      
      
      
@@ -20,7 +22,7 @@ const [result, setResult] = useState('')
  }else{
 
      
-     await setNumberTwo(e.target.value)
+     await setNumberTwo(parseFloat(e.target.value))
      
      
      clickCount = 0;
@@ -31,27 +33,30 @@ const opureita = async(e)=>{
     await setOperator(e.target.value)
 }
 
-const resoruto = (e) => {
-    if(operator === 'purasu'){
-        console.log('プラソだよ')
-    }else if(operator === 'mainusu'){
-        console.log('マイヌスだよ')
-       }else if(operator === 'muricupurai'){
-        console.log('ムリツプライだよ')
-    }else{
-        console.log('ヂバイドだよ')
-    }
-    
-    console.log(result)
-}
+
+
+
 
 
 useEffect(()=>{
     console.log(numberOne+'###'+operator+'###'+numberTwo+'###')
-    setResult(`${numberOne}and${operator}and${numberTwo} вот так братуха`)
-    
-      
-
+    if(operator === 'purasu'){
+        const end  = numberOne+numberTwo
+        setResult(end )
+        console.log('Result heeeeere'+result)
+    }else if(operator === 'mainusu'){
+        const end  = numberOne-numberTwo
+        setResult(end )
+        console.log('Result heeeeere'+result)
+    }else if(operator === 'muricupurai'){
+        const end = numberOne * numberTwo
+        setResult(end )
+        console.log('Result heeeeere'+result)
+    }else if(operator === 'dibaido'){
+        const end = numberOne / numberTwo
+        setResult(end )
+        console.log('Result heeeeere'+result)
+    }
 })
 
 
@@ -63,7 +68,7 @@ useEffect(()=>{
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <div className="answer-box">TBD</div>
+                <AnswerBox result={result}/>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top">AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
@@ -91,7 +96,7 @@ useEffect(()=>{
                 <div className="calc-row">
                     <button className="calc-button width-2" value={0} onClick={whichNumber}>0</button>
                     <button className="calc-button">.</button>
-                    <button className="calc-button calc-button-op" onClick={resoruto}>=</button>
+                    <button className="calc-button calc-button-op" >=</button>
                 </div>
             </div>
         </div>
