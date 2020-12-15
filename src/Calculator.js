@@ -17,25 +17,38 @@ const Calculator = props => {
             setNoCanDo("Error. Can't have more than one operator! Pick a number.")
             return
             }
-            console.log('INSIDE SET OPERATOR')
             setOperator(`${operator}${e}`)
+            setNoCanDo("")
         } else if (operator === "" && num2 === "") {
-            console.log('INSIDE SET NUM 1')
+            if (e === "0" && num1 === "") {
+                setNoCanDo("First number can't be a 0!")
+                return
+            }
              setNum1(`${num1}${e}`)
+             setNoCanDo("")
         } else {
             if (num1 !== "" && num2 !== "" && operator !== "" && e === "=") {
                 if (operator === "+") {
                     setValue(parseInt(num1) + parseInt(num2))
+                    setNoCanDo("")
                 } else if (operator === "-") {
                     setValue(parseInt(num1) - parseInt(num2))
+                    setNoCanDo("")
                 } else if (operator === "/") {
                     setValue(parseInt(num1) / parseInt(num2))
+                    setNoCanDo("")
                 } else {
                     setValue(parseInt(num1) * parseInt(num2))
+                    setNoCanDo("")
                 }
             }
             console.log('INSIDE SET NUM 2')
+            if (e === "0" && num2 === "") {
+                setNoCanDo("First number can't be a 0!")
+                return
+            }
             setNum2(`${num2}${e}`)
+            setNoCanDo("")
         }
     }
 
@@ -44,6 +57,7 @@ const Calculator = props => {
         setNum1("")
         setNum2("")
         setOperator("")
+        setNoCanDo("")
     }
 
     return (
