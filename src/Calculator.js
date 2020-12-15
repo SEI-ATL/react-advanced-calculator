@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
-
+    const [num1, setNum1] = useState('');
+    const [num2, setNum2] = useState('');
+    const [operator, setOperator] = useState('');
+    const [total, setTotatl] = useState('');
 
     return (
         <div className="container">
