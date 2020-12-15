@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
-    // const [operator, setDisplay] = useState('')
     const [num1, setNum1] = useState('')
     const [operator, setOperator] = useState('')
     const [num2, setNum2] = useState('')
@@ -41,17 +40,27 @@ const Calculator = props => {
     }
     
     const handleOperator = (op) => {
-        if (operator === '+' || operator === '-' || operator === '*' || operator === '/') {
-            console.log('Error two operators used back to back.')
-            alert('Error two operators used back to back')
+        if (equate === '') {
+            if (operator === '+' || operator === '-' || operator === '*' || operator === '/') {
+                alert('Error two operators used back to back')
+                setNum1('')
+                setNum2('')
+                setOperator('')
+                setEquate('')
+            }
         }
         setOperator(op)
-        // setOperator(op)
     }
 
     const evaluate = async () => {
+            if (num2 === '0' && operator ==='/') {
+                alert('Cannot divide by 0')
+                setNum1('')
+                setNum2('')
+                setOperator('')
+                setEquate('')
+            }
         let evaluation = eval(`${num1} ${operator} ${num2}`)
-        // setOperator('')
         setEquate(evaluation)
         console.log(evaluation)
     }
