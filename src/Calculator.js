@@ -7,6 +7,17 @@ const Calculator = props => {
     const [operator, setOperator] = useState('');
     const [total, setTotatl] = useState('');
 
+
+
+    // Added a handleClear function that will clear everything
+    handleClear = () => {
+        setNum1('');
+        setNum2('');
+        setOperator('');
+        setTotatl('');
+    }
+
+
     return (
         <div className="container">
             <h1>React Calculator</h1>
