@@ -17,12 +17,20 @@ const Calculator = props => {
     }
 
     const handleNum = (num) => {
-        if (display !== 0) {
-            let currentDisplay = display.toString()
-            let newDisplay = currentDisplay.concat(num.toString())
-            setDisplay(newDisplay)
-        } else if (display === 0) {
+        if (result === '') {
+            if (display !== 0) {
+                let currentDisplay = display.toString()
+                let newDisplay = currentDisplay.concat(num.toString())
+                setDisplay(newDisplay)
+            } else if (display === 0) {
+                setDisplay(num);
+            }
+        } else {
             setDisplay(num);
+            setOperator('');
+            setNum1(0)
+            setNum2(0)
+            setResult('')
         }
     }
 
