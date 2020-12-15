@@ -2,6 +2,77 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
+    //const [display, setDisplay] = useState('')
+    const [previousNum, setPreviousNum] = useState('')
+    const [currentNum, setCurrentNum] = useState('')
+    const [operator, setOperator] = useState('')
+    const [solution, setSolution] = useState('')
+    const [err, setErr] = useState('');
+
+
+    const handleClick = (e) => {
+        if (e === '+' || e === '-' || e === 'x' || e === '/') {
+            if (operator.length === 1) {
+                setErr('invalid input')
+                return
+            }
+            setOperator(`${operator}${e}`)
+            setErr('')
+        } else if (operator === '' && previousNum === '') {
+            setCurrentNum(`${currentNum}${e}`)
+            } else {
+                if (currentNum != '' && previousNum != '' && operator != '' && e === '=') {
+                    if (operator === '+') {
+                        setSolution(parseFloat(currentNum) + parseFloat(previousNum))
+                    } else if (operator === '-') {
+                        setSolution(parseFloat(currentNum) - parseFloat(previousNum))
+                    } else if (operator === 'x') {
+                        setSolution(parseFloat(currentNum) * parseFloat(previousNum))
+                    } else if (operator === '/') {
+                        setSolution(parseFloat(currentNum) / parseFloat(previousNum))
+                    }else if (operator === '%') {// not working
+                        setSolution(parseFloat(currentNum) % parseFloat(previousNum))
+                    }
+                }
+
+                setPreviousNum(`${previousNum}${e}`)
+            }
+    }
+
+    
+    
+    
+    
+    const handleClear = () => {
+        setPreviousNum('');
+        setCurrentNum('');
+        setOperator('');
+        //setDisplay('');
+        setSolution('');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     return (
