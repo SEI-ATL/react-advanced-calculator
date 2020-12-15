@@ -31,13 +31,13 @@ const Calculator = props => {
             setResult('Error!')
         } else {
             setOperator(op)
-            setNum1(parseInt(display))
+            setNum1(parseFloat(display))
             setDisplay(0)
         }
     }
 
     const handleSubmit = () => {
-        setNum2(parseInt(display))
+        setNum2(parseFloat(display))
         let answer = 0
         if (operator === '+') {
             answer = (num1 + num2)
@@ -51,6 +51,16 @@ const Calculator = props => {
             answer = (num1 % num2)
         }
         setResult(answer.toFixed(2))
+    }
+
+    const handleDecimal = () => {
+        if (display.toString().includes('.')) {
+            return
+        } else {
+            let currentDisplay = display.toString()
+            let newDisplay = currentDisplay.concat('.')
+            setDisplay(newDisplay)
+        }
     }
 
     return (
@@ -85,8 +95,8 @@ const Calculator = props => {
                 </div>
                 <div className="calc-row">
                     <button className="calc-button width-2">0</button>
-                    <button className="calc-button">.</button>
-                    <button onClick={() => {handleSubmit()}}className="calc-button calc-button-op">=</button>
+                    <button onClick={() => {handleDecimal()}} className="calc-button">.</button>
+                    <button onClick={() => {handleSubmit()}} className="calc-button calc-button-op">=</button>
                 </div>
             </div>
         </div>
