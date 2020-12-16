@@ -11,6 +11,7 @@ const [numberTwo, setNumberTwo] = useState(0);
 const [operator, setOperator] = useState('@@@');
 const [result, setResult] = useState(0)
 const [display, setDisplay] = useState('wait')
+const [mitai, setMitai] = useState('')
 
  const whichNumber=async(e)=>{
      if(display ==="wait"){
@@ -69,7 +70,18 @@ useEffect(()=>{
         setResult(end )
         console.log('Result heeeeere'+result)
     }
+    if(display==='firstNumber'){
+        setMitai(numberOne)
+    }else if(display==='operator'){
+        setMitai(operator)
+    }else if(display==='secondNumber'){
+        setMitai(numberTwo)
+    }else if(display==='result'){
+        setMitai(result)
+    }
 })
+
+
 
 
 
@@ -82,7 +94,7 @@ useEffect(()=>{
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <AnswerBox result={result} display={display}/>
+                <AnswerBox result={result} display={display} mitai={mitai}/>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top">AC</button>
                     <button className="calc-button calc-button-top">+/-</button>

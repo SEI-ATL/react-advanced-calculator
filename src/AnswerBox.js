@@ -9,6 +9,9 @@ function AnswerBox(props){
             <h1>
             {props.display}
             </h1>
+            <h1>
+            {props.mitai}
+            </h1>
             </div>
     )
 }
