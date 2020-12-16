@@ -11,7 +11,7 @@ const [numberTwo, setNumberTwo] = useState(0);
 const [operator, setOperator] = useState('@@@');
 const [result, setResult] = useState(0)
 const [display, setDisplay] = useState('wait')
-const [mitai, setMitai] = useState('')
+const [mitai, setMitai] = useState(0)
 
  const whichNumber=async(e)=>{
      if(display ==="wait"){
@@ -35,6 +35,16 @@ const [mitai, setMitai] = useState('')
      
      clickCount = 0;
  }
+}
+
+const deffault =()=>{
+    setNumberOne(0);
+    setNumberTwo(0);
+    setOperator('@@@');
+    setResult(0)
+    setDisplay('wait')
+    setMitai(0)
+    clickCount=0; 
 }
 
 const opureita = async(e)=>{
@@ -96,7 +106,7 @@ useEffect(()=>{
                 <p>Values: </p>
                 <AnswerBox result={result} display={display} mitai={mitai}/>
                 <div className="calc-row">
-                    <button className="calc-button calc-button-top">AC</button>
+                    <button className="calc-button calc-button-top" onClick={deffault}>AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
                     <button className="calc-button calc-button-top" >%</button>
                     <button className="calc-button calc-button-op" value="dibaido" onClick={opureita}>/</button>
