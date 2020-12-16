@@ -69,19 +69,19 @@ useEffect(()=>{
     if(operator === '+'){
         const end  = numberOne+numberTwo
         setResult((end).toFixed(2) )
-        console.log('Result heeeeere'+result)
+        console.log('Result heeeeere'+parseFloat(result))
     }else if(operator === '-'){
         const end  = numberOne-numberTwo
         setResult((end).toFixed(2) )
-        console.log('Result heeeeere'+result)
+        console.log('Result heeeeere'+parseFloat(result))
     }else if(operator === 'x'){
         const end = numberOne * numberTwo
         setResult((end).toFixed(2) )
-        console.log('Result heeeeere'+result)
+        console.log('Result heeeeere'+parseFloat(result))
     }else if(operator === '/'){
         const end = numberOne / numberTwo
         setResult((end).toFixed(2) )
-        console.log('Result heeeeere'+result)
+        console.log('Result heeeeere'+parseFloat(result))
     }
     if(display==='firstNumber'){
         setMitai(numberOne)
@@ -90,7 +90,7 @@ useEffect(()=>{
     }else if(display==='secondNumber'){
         setMitai(numberTwo)
     }else if(display==='result'){
-        setMitai(result)
+        setMitai(parseFloat(result))
     }
     if(negative===true&display==="firstNumber"){
      
@@ -119,6 +119,8 @@ useEffect(()=>{
         setNumberTwo(secondNumberOn)
         setPercent(false)
     }
+
+
 
 })
 
