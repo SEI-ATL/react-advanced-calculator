@@ -86,7 +86,7 @@ useEffect(()=>{
     if(display==='firstNumber'){
         setMitai(numberOne)
     }else if(display==='operator'){
-        setMitai(operator)
+        setMitai(numberOne)
     }else if(display==='secondNumber'){
         setMitai(numberTwo)
     }else if(display==='result'){
