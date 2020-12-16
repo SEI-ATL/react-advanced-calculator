@@ -12,10 +12,13 @@ const [operator, setOperator] = useState('@@@');
 const [result, setResult] = useState(0)
 const [display, setDisplay] = useState('wait')
 const [mitai, setMitai] = useState(0)
+const [negative, setNegative] = useState(false)
+const [percent, setPercent] = useState(false)
 
  const whichNumber=async(e)=>{
      if(display ==="wait"||display ==="firstNumber"){
         firstNumberOn = firstNumberOn + (e.target.value)
+        
         setDisplay('firstNumber')
         await setNumberOne(parseFloat(firstNumberOn))
      }
@@ -34,8 +37,18 @@ const deffault =()=>{
     setResult(0)
     setDisplay('wait')
     setMitai(0)
-   
+    firstNumberOn=0;
+    secondNumberOn=0;   
 }
+
+const negativE =()=>{
+    setNegative(true)
+}
+
+const percenT =()=>{
+    setPercent(true)
+}
+
 
 const opureita = async(e)=>{
     await setOperator(e.target.value)
@@ -53,21 +66,21 @@ const showEnd=()=>{
 
 useEffect(()=>{
     console.log(numberOne+'###'+operator+'###'+numberTwo+'###')
-    if(operator === 'purasu'){
+    if(operator === '+'){
         const end  = numberOne+numberTwo
-        setResult(end )
+        setResult((end).toFixed(2) )
         console.log('Result heeeeere'+result)
-    }else if(operator === 'mainusu'){
+    }else if(operator === '-'){
         const end  = numberOne-numberTwo
-        setResult(end )
+        setResult((end).toFixed(2) )
         console.log('Result heeeeere'+result)
-    }else if(operator === 'muricupurai'){
+    }else if(operator === 'x'){
         const end = numberOne * numberTwo
-        setResult(end )
+        setResult((end).toFixed(2) )
         console.log('Result heeeeere'+result)
-    }else if(operator === 'dibaido'){
+    }else if(operator === '/'){
         const end = numberOne / numberTwo
-        setResult(end )
+        setResult((end).toFixed(2) )
         console.log('Result heeeeere'+result)
     }
     if(display==='firstNumber'){
@@ -79,6 +92,34 @@ useEffect(()=>{
     }else if(display==='result'){
         setMitai(result)
     }
+    if(negative===true&display==="firstNumber"){
+     
+        firstNumberOn = firstNumberOn - (firstNumberOn * 2)
+        setNumberOne(firstNumberOn)
+        setNegative(false)
+    }
+    
+    if(negative===true&display==="secondNumber"){
+       
+        secondNumberOn =  secondNumberOn - (secondNumberOn * 2)
+        setNumberTwo(secondNumberOn)
+        setNegative(false)
+    }
+
+    if(percent===true&display==="firstNumber"){
+       
+        firstNumberOn = firstNumberOn * 0.01
+        setNumberOne(firstNumberOn)
+        setPercent(false)
+    }
+
+    if(percent===true&display==="secondNumber"){
+       
+        secondNumberOn =  secondNumberOn * 0.01
+        setNumberTwo(secondNumberOn)
+        setPercent(false)
+    }
+
 })
 
 
@@ -91,37 +132,37 @@ useEffect(()=>{
 
     return (
         <div className="container">
-            <h1>React Calculator</h1>
+            <h1>リアークトの電卓</h1>
             <div className="calc-container">
                 <p>Values: </p>
                 <AnswerBox result={result} display={display} mitai={mitai}/>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={deffault}>AC</button>
-                    <button className="calc-button calc-button-top">+/-</button>
-                    <button className="calc-button calc-button-top" >%</button>
-                    <button className="calc-button calc-button-op" value="dibaido" onClick={opureita}>/</button>
+                    <button className="calc-button calc-button-top" onClick={negativE}>+/-</button>
+                    <button className="calc-button calc-button-top" onClick={percenT}>%</button>
+                    <button className="calc-button calc-button-op" value="/" onClick={opureita}>/</button>
                 </div>
                 <div className="calc-row">
                     <button className="calc-button" value={7} onClick={whichNumber}>7</button>
                     <button className="calc-button" value={8} onClick={whichNumber}>8</button>
                     <button className="calc-button" value={9} onClick={whichNumber}>9</button>
-                    <button className="calc-button calc-button-op" value="muricupurai" onClick={opureita}>x</button>
+                    <button className="calc-button calc-button-op" value="x" onClick={opureita}>x</button>
                 </div>
                 <div className="calc-row">
                     <button className="calc-button" value={4} onClick={whichNumber}>4</button>
                     <button className="calc-button" value={5} onClick={whichNumber}>5</button>
                     <button className="calc-button" value={6} onClick={whichNumber}>6</button>
-                    <button className="calc-button calc-button-op" value="mainusu" onClick={opureita}>-</button>
+                    <button className="calc-button calc-button-op" value="-" onClick={opureita}>-</button>
                 </div>
                 <div className="calc-row">
                     <button className="calc-button" value={1} onClick={whichNumber}>1</button>
                     <button className="calc-button" value={2} onClick={whichNumber}>2</button>
                     <button className="calc-button" value={3} onClick={whichNumber}>3</button>
-                    <button className="calc-button calc-button-op" value="purasu" onClick={opureita}>+</button>
+                    <button className="calc-button calc-button-op" value="+" onClick={opureita}>+</button>
                 </div>
                 <div className="calc-row">
                     <button className="calc-button width-2" value={0} onClick={whichNumber}>0</button>
-                    <button className="calc-button">.</button>
+                    <button className="calc-button"　value={'.'} onClick={whichNumber}>.</button>
                     <button className="calc-button calc-button-op" onClick={showEnd}>=</button>
                 </div>
             </div>

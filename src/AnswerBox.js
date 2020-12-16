@@ -9,7 +9,7 @@ function AnswerBox(props){
             <h1>
             {props.display}
             </h1> */}
-            <h1>
+            <h1 id="it">
             {props.mitai}
             </h1>
             </div>
