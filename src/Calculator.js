@@ -10,8 +10,15 @@ const [numberOne, setNumberOne] = useState(0);
 const [numberTwo, setNumberTwo] = useState(0);
 const [operator, setOperator] = useState('@@@');
 const [result, setResult] = useState(0)
+const [display, setDisplay] = useState('wait')
 
  const whichNumber=async(e)=>{
+     if(display ==="wait"){
+        setDisplay('firstNumber')
+     }
+ else if(display==="operator"){
+     setDisplay('secondNumber')
+ }
  if(clickCount === 0){
   
      await setNumberOne(parseFloat(e.target.value))
@@ -31,6 +38,11 @@ const [result, setResult] = useState(0)
 
 const opureita = async(e)=>{
     await setOperator(e.target.value)
+    setDisplay('operator')
+}
+
+const showEnd=()=>{
+    setDisplay('result')
 }
 
 
@@ -63,12 +75,14 @@ useEffect(()=>{
 
 
 
+
+
     return (
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <AnswerBox result={result}/>
+                <AnswerBox result={result} display={display}/>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top">AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
@@ -96,7 +110,7 @@ useEffect(()=>{
                 <div className="calc-row">
                     <button className="calc-button width-2" value={0} onClick={whichNumber}>0</button>
                     <button className="calc-button">.</button>
-                    <button className="calc-button calc-button-op" >=</button>
+                    <button className="calc-button calc-button-op" onClick={showEnd}>=</button>
                 </div>
             </div>
         </div>
@@ -104,3 +118,9 @@ useEffect(()=>{
 }
 
 export default Calculator
+
+
+
+
+
+   

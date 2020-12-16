@@ -6,6 +6,9 @@ function AnswerBox(props){
             <h1>
             {props.result}
             </h1>
+            <h1>
+            {props.display}
+            </h1>
             </div>
     )
 }
