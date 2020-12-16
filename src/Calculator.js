@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import AnswerBox from './AnswerBox';
 
-let clickCount = 0;
-let plusResult = 0;
+let firstNumberOn=0;
+let secondNumberOn=0;
 
 const Calculator = props => {
     // Declare state variables
@@ -14,27 +14,17 @@ const [display, setDisplay] = useState('wait')
 const [mitai, setMitai] = useState(0)
 
  const whichNumber=async(e)=>{
-     if(display ==="wait"){
+     if(display ==="wait"||display ==="firstNumber"){
+        firstNumberOn = firstNumberOn + (e.target.value)
         setDisplay('firstNumber')
+        await setNumberOne(parseFloat(firstNumberOn))
      }
- else if(display==="operator"){
+ else if(display==="operator"|| display ==="secondNumber"){
+    secondNumberOn = secondNumberOn + (e.target.value)
      setDisplay('secondNumber')
+     await setNumberTwo(parseFloat(secondNumberOn))
  }
- if(clickCount === 0){
-  
-     await setNumberOne(parseFloat(e.target.value))
-     
-     
-     
-     clickCount = 1;
- }else{
 
-     
-     await setNumberTwo(parseFloat(e.target.value))
-     
-     
-     clickCount = 0;
- }
 }
 
 const deffault =()=>{
@@ -44,7 +34,7 @@ const deffault =()=>{
     setResult(0)
     setDisplay('wait')
     setMitai(0)
-    clickCount=0; 
+   
 }
 
 const opureita = async(e)=>{
